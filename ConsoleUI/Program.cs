@@ -8,6 +8,7 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
+            // test test
             ProductManager productManager = new ProductManager(new InMemoryProductDal());
 
             foreach (var item in productManager.GetAll())
