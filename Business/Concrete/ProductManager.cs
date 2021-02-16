@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Business.Abstract;
+using Business.Constants;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -16,9 +18,15 @@ namespace Business.Concrete
             _productDal = productDal;
         }
 
-        public List<Product> GetAll()
+        public IDataResult<List<Product>> GetAll()
         {
-            return _productDal.GetAll();
+            if (DateTime.Now.Hour == 22)
+            {
+                return new ErrorResult();
+            }
+
+            return new SuccessDataResult<List<Product>>(_productDal.GetAll(), true, "Ürünler Listelendi.");
+
         }
 
         public List<Product> GetAllByCategoryId(int id)
@@ -44,11 +52,11 @@ namespace Business.Concrete
         public IResult Add(Product product)
         {
             if (product.ProductName.Length < 2)
-            {
-                return new ErrorResult("Ürün ismi en az 2 karakter olmalıdır");
+            {// magic strings
+                return new ErrorResult(Messages.ProductNameInValid);
             }
             _productDal.Add(product);
-            return new Result(true, "Ürün Eklendi.");
+            return new Result(true, Messages.ProductAdded);
         }
     }
 }
