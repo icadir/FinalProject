@@ -32,7 +32,7 @@ namespace ConsoleUI
         {
             ProductManager productManager = new ProductManager(new EfProductDal());
 
-            foreach (var item in productManager.GetProductDetails())
+            foreach (var item in productManager.GetProductDetails().Data)
             {
                 Console.WriteLine(item.ProductName + "/" + item.CategoryName);
             }
