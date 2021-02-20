@@ -22,6 +22,11 @@ namespace WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //Autofact bize Aop imkaný sunuyor.
+            //Autofac(core ile geldi),Ninject,CastleWindsor,StructoreMap,LightInject,DryInject --> IoC container(yokken diðerleri bunlarý saðlýyordu.)
+            // AOP -> Örnegin siz bütün metodlarýnýzý loglamak istiyorsunuz. Logger diye servis verip Log metdounu çaðrýrsýnýz ama biz metodlarýn baþýna LogAspect diye bir þey yapacaðýz . Yani AOP => bir metot hataya düþtðün de baþýnda sonunda çalýþan yapý. 
+            // hepsini bir araya koymayacaðýz da 
+            // MEtotlarýnda üstünde [Validate],[Logger],[Transaction],[Performans],[Cache] gibi nereye yazarsak oraya yazarýz ve tüm metotlarda uygular.
             services.AddControllers();
             services.AddSingleton<IProductService, ProductManager>();
             services.AddSingleton<IProductDal, EfProductDal>();
